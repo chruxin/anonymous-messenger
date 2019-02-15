@@ -1,5 +1,6 @@
-const app = require('./slack/app')
+const app = require("./slack/app");
 const bot = require("./bot");
+const user = require("./slack/user");
 
 const PORT = 4390;
 
@@ -10,12 +11,16 @@ const appBot = new bot.Bot(
 );
 
 async function main() {
-  app.initializeApp()
-  const users = await appBot.getUsers()
-  // TODO: message everyone
+  // initialize uris
+  app.initializeApp();
+  // retrieve a list of users
+  const users = await appBot.getUsers();
+  // open DMs with each user
+  const chats = await appBot.openDMs(users);
+  // TODO: message each user to explain the tool
 }
 
-main()
+main();
 
 module.exports = {
   appBot

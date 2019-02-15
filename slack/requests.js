@@ -1,5 +1,4 @@
 const request = require("request-promise");
-const parser = require("./parser");
 
 async function getUsers(bot) {
   let response;
@@ -22,11 +21,39 @@ async function getUsers(bot) {
     throw error;
   }
   if (!response.ok) {
-    throw new Error(response.error)
+    throw new Error(response.error);
   }
-  return parser.parseUsers(response.members);
+  return response.members;
+}
+
+async function messageUser(bot, user) {
+  let response;
+  try {
+    response = await request({
+      url: "https://slack.com/api/im.open",
+      qs: {
+        token: bot.token,
+        user: user.id
+      },
+      headers: [
+        {
+          name: "content-type",
+          value: "application/x-www-form-urlencoded"
+        }
+      ],
+      json: true,
+      method: "POST"
+    });
+  } catch (error) {
+    throw error;
+  }
+  if (!response.ok) {
+    return null;
+  }
+  return response.channel;
 }
 
 module.exports = {
-  getUsers
+  getUsers,
+  messageUser
 };

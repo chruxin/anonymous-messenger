@@ -7,6 +7,11 @@ function parseUsers(members) {
     .map(member => new user.User(member.id));
 }
 
+function parseChats(chats) {
+  return chats.filter(chat => chat !== null && chat !== undefined);
+}
+
 module.exports = {
-  parseUsers
+  parseUsers,
+  parseChats
 };
