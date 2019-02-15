@@ -1,5 +1,5 @@
-const requests = require("./slack/requests");
-const parser = require("./slack/parser");
+const requests = require("../slack/requests");
+const parser = require("../handlers/parser");
 
 class Bot {
   constructor(client_id, client_scret, token) {

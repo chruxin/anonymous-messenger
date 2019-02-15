@@ -1,4 +1,4 @@
-const user = require("./user");
+const user = require("../models/user");
 
 // members is a list of users
 function parseUsers(members) {

@@ -1,5 +1,5 @@
 const app = require("./slack/app");
-const bot = require("./bot");
+const bot = require("./models/bot");
 
 const appBot = new bot.Bot(
   process.env.SLACK_CLIENT_ID,
