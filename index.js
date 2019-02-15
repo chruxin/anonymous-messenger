@@ -1,8 +1,5 @@
 const app = require("./slack/app");
 const bot = require("./bot");
-const user = require("./slack/user");
-
-const PORT = 4390;
 
 const appBot = new bot.Bot(
   process.env.SLACK_CLIENT_ID,
