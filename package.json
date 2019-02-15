@@ -1,0 +1,25 @@
+{
+  "name": "anonymous-messenger",
+  "version": "1.0.0",
+  "description": "Slack app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "source app-env && nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chruxin/anonymous-messenger.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chruxin/anonymous-messenger/issues"
+  },
+  "homepage": "https://github.com/chruxin/anonymous-messenger#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  }
+}
