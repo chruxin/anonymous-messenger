@@ -1,5 +1,7 @@
+const printf = require("printf");
 const request = require("request-promise");
 const requests = require("./requests");
+const strings = require("../strings/strings").strings;
 
 async function oauth(req, res, bot) {
   // When a user authorizes an app, a code query parameter is passed on the
@@ -53,14 +55,13 @@ async function notifyAll(bot) {
   // retrieve a list of channels
   const channels = await bot.getPublicChannels();
   const channel = pickChannel(channels);
+  bot.setChannel(channel);
   // open DMs with each user
   const dms = await bot.openDMs(users);
   // message each user to explain the tool and
   // include the channel that will be used to post messages
   const promises = [];
-  const message = `Hello I'm a bot that posts anonymous messages to the ${
-    channel.name
-  } channel. You can also invoke me with the /anon command.`;
+  const message = printf(strings.TOOL_EXPLANATION, channel.name);
   for (const dm of dms) {
     promises.push(requests.postMessage(null, message, dm.id, bot));
   }

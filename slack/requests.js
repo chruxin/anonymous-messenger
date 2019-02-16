@@ -72,6 +72,7 @@ async function messageUser(bot, user) {
   return response.channel;
 }
 
+// if user_id is null, it's sent by bot itself
 async function postMessage(user_id, text, channel_id, bot) {
   let response;
   try {

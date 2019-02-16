@@ -1,7 +1,6 @@
 const verify = require("../handlers/verify");
 const parser = require("../handlers/parser");
-const requests = require("./requests");
-
+const strings = require("../strings/strings").strings;
 // Slash command.
 
 async function command(req, res, bot) {
@@ -11,10 +10,9 @@ async function command(req, res, bot) {
     return;
   }
 
-  res.send("Message received and will be posted anonymously soon.");
+  res.send(strings.MESSAGE_RECEIVED);
   const body = parser.parseRequestBody(req.body);
-  const general = "CG618UUBT";
-  await requests.postMessage(body.user_id, body.text, general, bot);
+  await bot.postToAnonymousChannel(body.user_id, body.text);
 }
 
 module.exports = {
