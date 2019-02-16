@@ -2,10 +2,11 @@ const requests = require("../slack/requests");
 const parser = require("../handlers/parser");
 
 class Bot {
-  constructor(client_id, client_scret, token) {
+  constructor(client_id, client_scret, token, signing_secret) {
     this.client_id = client_id;
     this.client_scret = client_scret;
     this.token = token;
+    this.signing_secret = signing_secret;
   }
 
   async getUsers() {

@@ -8,12 +8,9 @@ async function getUsers(bot) {
       qs: {
         token: bot.token
       },
-      headers: [
-        {
-          name: "content-type",
-          value: "application/x-www-form-urlencoded"
-        }
-      ],
+      headers: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
       json: true,
       method: "GET"
     });
@@ -35,12 +32,9 @@ async function messageUser(bot, user) {
         token: bot.token,
         user: user.id
       },
-      headers: [
-        {
-          name: "content-type",
-          value: "application/x-www-form-urlencoded"
-        }
-      ],
+      headers: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
       json: true,
       method: "POST"
     });
@@ -53,7 +47,29 @@ async function messageUser(bot, user) {
   return response.channel;
 }
 
+async function postMessage(user_id, text, channel_id, bot) {
+  let response;
+  try {
+    response = await request({
+      url: "https://slack.com/api/chat.postMessage",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${bot.token}`
+      },
+      body: {
+        channel: channel_id,
+        text: text
+      },
+      json: true,
+      method: "POST"
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getUsers,
-  messageUser
+  messageUser,
+  postMessage
 };
