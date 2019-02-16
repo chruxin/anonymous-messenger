@@ -2,11 +2,16 @@ const requests = require("../slack/requests");
 const parser = require("../handlers/parser");
 
 class Bot {
-  constructor(client_id, client_scret, token, signing_secret) {
+  constructor(client_id, client_secret, token, signing_secret) {
     this.client_id = client_id;
-    this.client_scret = client_scret;
+    this.client_secret = client_secret;
     this.token = token;
     this.signing_secret = signing_secret;
+  }
+
+  async getPublicChannels() {
+    const channels = await requests.getPublicChannels(this);
+    return parser.parsePublicChannels(channels);
   }
 
   async getUsers() {
@@ -20,7 +25,7 @@ class Bot {
       promises.push(requests.messageUser(this, user));
     }
     const chats = await Promise.all(promises);
-    return parser.parseChats(chats);
+    return parser.parseDMs(chats);
   }
 }
 

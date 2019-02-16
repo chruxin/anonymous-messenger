@@ -32,22 +32,13 @@ const textParser = bodyParser.text({
 
   // This route handles get request to a /oauth endpoint. We'll use this
   // endpoint for handling the logic of the Slack oAuth process behind our app.
-  app.get("/oauth", oauth.oauth);
+  app.get("/oauth", async (req, res) => oauth.oauth(req, res, appBot));
 
   // Slash command endpoint
   app.post("/command", textParser, async (req, res) =>
     command.command(req, res, appBot)
   );
 })();
-
-async function main() {
-  // initialize uris
-  // retrieve a list of users
-  // const users = await appBot.getUsers();
-  // open DMs with each user
-  // const chats = await appBot.openDMs(users);
-  // TODO: message each user to explain the tool
-}
 
 module.exports = {
   appBot

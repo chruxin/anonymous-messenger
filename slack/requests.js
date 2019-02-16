@@ -1,5 +1,30 @@
 const request = require("request-promise");
 
+async function getPublicChannels(bot) {
+  let response;
+  try {
+    response = await request({
+      url: "https://slack.com/api/conversations.list",
+      qs: {
+        token: bot.token,
+        exclude_archived: true,
+        types: "public_channel"
+      },
+      headers: {
+        "content-type": "application/x-www-form-urlencoded"
+      },
+      json: true,
+      method: "GET"
+    });
+  } catch (error) {
+    throw error;
+  }
+  if (!response.ok) {
+    throw new Error(response.error);
+  }
+  return response.channels;
+}
+
 async function getUsers(bot) {
   let response;
   try {
@@ -71,5 +96,6 @@ async function postMessage(user_id, text, channel_id, bot) {
 module.exports = {
   getUsers,
   messageUser,
-  postMessage
+  postMessage,
+  getPublicChannels
 };

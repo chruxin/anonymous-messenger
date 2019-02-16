@@ -1,4 +1,5 @@
 const user = require("../models/user");
+const conversation = require("../models/conversation");
 
 // members is a list of users
 function parseUsers(members) {
@@ -7,8 +8,10 @@ function parseUsers(members) {
     .map(member => new user.User(member.id));
 }
 
-function parseChats(chats) {
-  return chats.filter(chat => chat !== null && chat !== undefined);
+function parseDMs(chats) {
+  return chats
+    .filter(chat => chat !== null && chat !== undefined)
+    .map(chat => new conversation.DM(chat.id));
 }
 
 // body is a string of the format KEY=VALUE&KEY1=VALUE1
@@ -22,8 +25,15 @@ function parseRequestBody(body) {
   return result;
 }
 
+function parsePublicChannels(channels) {
+  return channels.map(
+    channel => new conversation.PublicChannel(channel.id, channel.name)
+  );
+}
+
 module.exports = {
   parseUsers,
-  parseChats,
-  parseRequestBody
+  parseDMs,
+  parseRequestBody,
+  parsePublicChannels
 };
