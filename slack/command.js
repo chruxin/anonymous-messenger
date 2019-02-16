@@ -1,6 +1,6 @@
 const verify = require("../handlers/verify");
-const parser = require("../handlers/parser");
 const strings = require("../strings/strings").strings;
+const qs = require("query-string");
 // Slash command.
 
 async function command(req, res, bot) {
@@ -11,7 +11,7 @@ async function command(req, res, bot) {
   }
 
   res.send(strings.MESSAGE_RECEIVED);
-  const body = parser.parseRequestBody(req.body);
+  const body = qs.parse(req.body);
   await bot.postToAnonymousChannel(body.user_id, body.text);
 }
 

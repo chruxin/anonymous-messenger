@@ -14,17 +14,6 @@ function parseDMs(chats) {
     .map(chat => new conversation.DM(chat.id));
 }
 
-// body is a string of the format KEY=VALUE&KEY1=VALUE1
-function parseRequestBody(body) {
-  const parts = body.split("&");
-  const result = {};
-  for (const part of parts) {
-    const kv = part.split("=");
-    result[kv[0]] = kv[1];
-  }
-  return result;
-}
-
 function parsePublicChannels(channels) {
   return channels.map(
     channel => new conversation.PublicChannel(channel.id, channel.name)
@@ -34,6 +23,5 @@ function parsePublicChannels(channels) {
 module.exports = {
   parseUsers,
   parseDMs,
-  parseRequestBody,
   parsePublicChannels
 };
