@@ -1,11 +1,11 @@
-const user = require("../models/user");
+const User = require("../models/user").User;
 const conversation = require("../models/conversation");
 
 // members is a list of users
 function parseUsers(members) {
   return members
     .filter(member => !member.deleted)
-    .map(member => new user.User(member.id));
+    .map(member => new User(member.id));
 }
 
 function parseDMs(chats) {

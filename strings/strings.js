@@ -1,3 +1,5 @@
+/* Strings used in the app */
+
 const strings = {
   MESSAGE_RECEIVED: "Message received and will be posted anonymously soon.",
   TOOL_EXPLANATION:

@@ -1,10 +1,10 @@
-const verify = require("../handlers/verify");
+const verify = require("../handlers/verify").verifySlack;
 const strings = require("../strings/strings").strings;
 const qs = require("query-string");
 // Slash command.
 
 async function command(req, res, bot) {
-  const fromSlack = verify.verifySlack(req, bot);
+  const fromSlack = verify(req, bot);
   if (!fromSlack) {
     console.error(`Receive request not from Slack: ${req.body}`);
     return;

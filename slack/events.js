@@ -20,7 +20,6 @@ async function events(req, res, bot) {
     case "event_callback":
       const event = req.body.event;
       if (isDM(event)) {
-        console.log(event);
         res.sendStatus(200);
         await requests.postMessage(
           null,

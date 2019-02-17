@@ -1,11 +1,12 @@
+/* Entry point of the app */
 const bodyParser = require("body-parser");
 const express = require("express");
-const bot = require("./models/bot");
-const command = require("./slack/command");
+const Bot = require("./models/bot").Bot;
+const command = require("./slack/command").command;
 const events = require("./slack/events").events;
-const oauth = require("./slack/oauth");
+const oauth = require("./slack/oauth").oauth;
 
-const appBot = new bot.Bot(
+const appBot = new Bot(
   process.env.SLACK_CLIENT_ID,
   process.env.SLACK_CLIENT_SECRET,
   process.env.SLACK_BOT_TOKEN,
@@ -17,15 +18,13 @@ const PORT = 4390 || process.env.PORT;
 
 const app = express();
 const jsonParser = bodyParser.json();
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const textParser = bodyParser.text({
   type: "application/x-www-form-urlencoded"
 });
 
 (function initializeApp() {
   app.listen(PORT, () => {
-    //Callback triggered when server is successfully listening. Hurray!
-    console.log("Example app listening on port " + PORT);
+    console.log("App listening on port " + PORT);
   });
 
   app.get("/", (req, res) => {
@@ -36,19 +35,14 @@ const textParser = bodyParser.text({
   app.post("/events", jsonParser, async (req, res) => events(req, res, appBot));
 
   // app installation authentication
-  app.get("/oauth", async (req, res) => oauth.oauth(req, res, appBot));
+  app.get("/oauth", async (req, res) => oauth(req, res, appBot));
 
   // slash command
   app.post("/command", textParser, async (req, res) =>
-    command.command(req, res, appBot)
+    command(req, res, appBot)
   );
 })();
 
 module.exports = {
   appBot
 };
-
-// module.exports = {
-//   app,
-//   initializeApp
-// };

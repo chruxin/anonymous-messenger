@@ -8,10 +8,8 @@ async function oauth(req, res, bot) {
   // oAuth endpoint. If that code is not there, we respond with an error message
   if (!req.query.code) {
     res.status(500);
-    res.send({ Error: "Looks like we're not getting code." });
-    // TODO: error handling middleware?
-    console.log("Looks like we're not getting code.");
-    return;
+    res.send({ Error: "Authentication code not present." });
+    throw new Error("Authentication code not present.");
   }
   let response;
   try {
