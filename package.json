@@ -25,6 +25,7 @@
     "project-name-generator": "^2.1.6",
     "query-string": "^6.2.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.4"
+    "request-promise": "^4.2.4",
+    "tsscmp": "^1.0.6"
   }
 }
